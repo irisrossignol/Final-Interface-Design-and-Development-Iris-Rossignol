@@ -11,6 +11,7 @@ const winConditions = [
   [0, 4, 8],
   [2, 4, 6],
 ];
+
 let options = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let running = false;
@@ -36,7 +37,23 @@ function cellClicked() {
 function updateCell(cell, index) {
   options[index] = currentPlayer;
   cell.textContent = currentPlayer;
+
+  if (currentPlayer === "X") {
+    const colors = ["#96A78D", "#B6CEB4", "#D9E9CF"];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    cell.style.backgroundColor = randomColor;
+  }
+
+  if (currentPlayer === "O") {
+    const colors = ["#F0A8D0", "#F0A8D0", "#F7B5CA"];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    cell.style.backgroundColor = randomColor;
+
+    // Bordure toujours noire
+    cell.style.borderColor = "black";
+  }
 }
+
 function changePlayer() {
   currentPlayer = currentPlayer == "X" ? "O" : "X";
   statusText.textContent = `${currentPlayer}'s turn`;
@@ -73,6 +90,10 @@ function restartGame() {
   currentPlayer = "X";
   options = ["", "", "", "", "", "", "", "", ""];
   statusText.textContent = `${currentPlayer}'s turn`;
-  cells.forEach((cell) => (cell.textContent = ""));
+  cells.forEach((cell) => {
+    cell.textContent = "";
+    cell.style.backgroundColor = "white"; // Fond remis à blanc
+    cell.style.borderColor = "black"; // Bordure noire
+  });
   running = true;
 }
