@@ -39,18 +39,20 @@ function updateCell(cell, index) {
   cell.textContent = currentPlayer;
 
   if (currentPlayer === "X") {
-    const colors = ["#96A78D", "#B6CEB4", "#D9E9CF"];
+    const colors = ["#ff0000ff", "#fff700ff", "#ff9900ff"];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    cell.style.backgroundColor = randomColor;
+    cell.style.color = randomColor;
+    cell.style.borderColor = "white";
   }
 
-  if (currentPlayer === "O") {
-    const colors = ["#F0A8D0", "#F0A8D0", "#F7B5CA"];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    cell.style.backgroundColor = randomColor;
+  //const colors = ["#96A78D", "#B6CEB4", "#D9E9CF"];
+  // const colors = ["#F0A8D0", "#F0A8D0", "#F7B5CA"];
 
-    // Bordure toujours noire
-    cell.style.borderColor = "black";
+  if (currentPlayer === "O") {
+    const colors = ["#a600ffff", "#00fff7ff", "#0015ffff"];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    cell.style.color = randomColor;
+    cell.style.borderColor = "white";
   }
 }
 
@@ -92,8 +94,7 @@ function restartGame() {
   statusText.textContent = `${currentPlayer}'s turn`;
   cells.forEach((cell) => {
     cell.textContent = "";
-    cell.style.backgroundColor = "white"; // Fond remis à blanc
-    cell.style.borderColor = "black"; // Bordure noire
+    cell.style.backgroundColor = "#0e4f30";
   });
   running = true;
 }
