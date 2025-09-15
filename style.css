@@ -71,7 +71,7 @@ h1 {
 }
 
 .bonjour {
-  position: fixed;
+  position: absolute;
   right: 120px;
   bottom: 250px;
   font-size: 48px;
@@ -80,15 +80,16 @@ h1 {
 }
 
 .hello {
-  position: fixed;
+  position: absolute;
   left: 120px;
   bottom: 350px;
   font-size: 48px;
   transform: rotate(15deg);
   color: #ff0000ff;
 }
+
 .merhaba {
-  position: fixed;
+  position: absolute;
   left: 230px;
   bottom: 90px;
   font-size: 48px;
