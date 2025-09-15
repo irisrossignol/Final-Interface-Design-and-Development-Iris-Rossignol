@@ -18,7 +18,7 @@ body {
 #gameContainer {
   font-family: Chalkduster, fantasy;
   text-align: center;
-  font-size: 160%;
+  font-size: 130%;
 }
 
 #cellContainer {
@@ -30,13 +30,17 @@ body {
 }
 
 h1 {
-  background-color: #9d7e56;
+  /* background-color: #9d7e56; */
+  background-image: url("trees-1915251_1280.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: black;
   margin: 0;
   padding: 20px;
   margin-bottom: 4%;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -51,4 +55,43 @@ h1 {
   border: 2px solid rgb(255, 255, 255);
   border-radius: 5px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#hautGauche {
+  border-top-left-radius: 20px;
+}
+#hautDroite {
+  border-top-right-radius: 20px;
+}
+#basGauche {
+  border-bottom-left-radius: 20px;
+}
+#basDroite {
+  border-bottom-right-radius: 20px;
+}
+
+.bonjour {
+  position: fixed;
+  right: 120px;
+  bottom: 250px;
+  font-size: 48px;
+  transform: rotate(-15deg);
+  color: #ff9900ff;
+}
+
+.hello {
+  position: fixed;
+  left: 120px;
+  bottom: 350px;
+  font-size: 48px;
+  transform: rotate(15deg);
+  color: #ff0000ff;
+}
+.merhaba {
+  position: fixed;
+  left: 230px;
+  bottom: 90px;
+  font-size: 48px;
+  transform: rotate(-19deg);
+  color: #00fff7ff;
 }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TicTacToe</title>
+    <script src="http://unpkg.com/tone"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -11,17 +12,20 @@
       <h1>Tic Tac Toe</h1>
       <div class="box">
         <div id="cellContainer">
-          <div cellIndex="0" class="cell"></div>
-          <div cellIndex="1" class="cell"></div>
-          <div cellIndex="2" class="cell"></div>
-          <div cellIndex="3" class="cell"></div>
-          <div cellIndex="4" class="cell"></div>
-          <div cellIndex="5" class="cell"></div>
-          <div cellIndex="6" class="cell"></div>
-          <div cellIndex="7" class="cell"></div>
-          <div cellIndex="8" class="cell"></div>
+          <div cellIndex="0" class="cell" id="hautGauche" data-note="c"></div>
+          <div cellIndex="1" class="cell" data-note="d"></div>
+          <div cellIndex="2" class="cell" id="hautDroite" data-note="e"></div>
+          <div cellIndex="3" class="cell" data-note="f"></div>
+          <div cellIndex="4" class="cell" data-note="g"></div>
+          <div cellIndex="5" class="cell" data-note="a"></div>
+          <div cellIndex="6" class="cell" id="basGauche" data-note="b"></div>
+          <div cellIndex="7" class="cell" data-note="c#"></div>
+          <div cellIndex="8" class="cell" id="basDroite" data-note="d#"></div>
         </div>
       </div>
+      <p class="bonjour">Bonjour</p>
+      <p class="hello">Hello</p>
+      <p class="merhaba">Merhaba</p>
       <h2 id="statusText"></h2>
       <button id="restartBtn">Restart</button>
     </div>

@@ -1,6 +1,8 @@
 const cells = document.querySelectorAll(".cell");
 const statusText = document.querySelector("#statusText");
 const restartBtn = document.querySelector("#restartBtn");
+
+// Tt les alignements pr gagner
 const winConditions = [
   [0, 1, 2],
   [3, 4, 5],
@@ -13,66 +15,66 @@ const winConditions = [
 ];
 
 let options = ["", "", "", "", "", "", "", "", ""];
-let currentPlayer = "X";
+let currentPlayer = "X"; // Premier joueur
 let running = false;
+
+// Sons
+let polySynth = new Tone.PolySynth(Tone.Synth, {
+  oscillator: { type: "fatsawtooth", count: 3, spread: 10 },
+  envelope: {
+    attack: 0.01,
+    decay: 0.1,
+    sustain: 0.5,
+    release: 0.1,
+    attackCurve: "exponential",
+  },
+});
+polySynth.toDestination();
+
+function initializeGame() {
+  cells.forEach((cell) => cell.addEventListener("click", cellClicked)); // écouter la case cliquée
+  restartBtn.addEventListener("click", restartGame); // bouton restart
+  statusText.textContent = `${currentPlayer}'s turn`; // c’est au joueur de jouer
+  running = true;
+}
 
 initializeGame();
 
-function initializeGame() {
-  cells.forEach((cell) => cell.addEventListener("click", cellClicked));
-  restartBtn.addEventListener("click", restartGame);
-  statusText.textContent = `${currentPlayer}'s turn`;
-  running = true;
-}
 function cellClicked() {
   const cellIndex = this.getAttribute("cellIndex");
 
-  if (options[cellIndex] != "" || !running) {
-    return;
-  }
+  if (options[cellIndex] !== "" || !running) return;
 
   updateCell(this, cellIndex);
   checkWinner();
 }
+
 function updateCell(cell, index) {
   options[index] = currentPlayer;
   cell.textContent = currentPlayer;
 
   if (currentPlayer === "X") {
     const colors = ["#ff0000ff", "#fff700ff", "#ff9900ff"];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    cell.style.color = randomColor;
-    cell.style.borderColor = "white";
-  }
-
-  //const colors = ["#96A78D", "#B6CEB4", "#D9E9CF"];
-  // const colors = ["#F0A8D0", "#F0A8D0", "#F7B5CA"];
-
-  if (currentPlayer === "O") {
+    cell.style.color = colors[Math.floor(Math.random() * colors.length)];
+  } else {
     const colors = ["#a600ffff", "#00fff7ff", "#0015ffff"];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    cell.style.color = randomColor;
-    cell.style.borderColor = "white";
+    cell.style.color = colors[Math.floor(Math.random() * colors.length)];
   }
+
+  // Sons
+  Tone.start();
+  const octave = currentPlayer === "X" ? 4 : 5;
+  const note = cell.dataset.note + octave;
+  polySynth.triggerAttackRelease(note, "8n");
 }
 
-function changePlayer() {
-  currentPlayer = currentPlayer == "X" ? "O" : "X";
-  statusText.textContent = `${currentPlayer}'s turn`;
-}
 function checkWinner() {
   let roundWon = false;
 
-  for (let i = 0; i < winConditions.length; i++) {
-    const condition = winConditions[i];
-    const cellA = options[condition[0]];
-    const cellB = options[condition[1]];
-    const cellC = options[condition[2]];
-
-    if (cellA == "" || cellB == "" || cellC == "") {
-      continue;
-    }
-    if (cellA == cellB && cellB == cellC) {
+  for (let condition of winConditions) {
+    const [a, b, c] = condition;
+    if (options[a] === "" || options[b] === "" || options[c] === "") continue;
+    if (options[a] === options[b] && options[b] === options[c]) {
       roundWon = true;
       break;
     }
@@ -82,12 +84,18 @@ function checkWinner() {
     statusText.textContent = `${currentPlayer} wins!`;
     running = false;
   } else if (!options.includes("")) {
-    statusText.textContent = `Draw!`;
+    statusText.textContent = "Draw!";
     running = false;
   } else {
-    changePlayer();
+    changePlayer(); // chznge de joueur que si ca gagne pas
   }
 }
+
+function changePlayer() {
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+  statusText.textContent = `${currentPlayer}'s turn`;
+}
+
 function restartGame() {
   currentPlayer = "X";
   options = ["", "", "", "", "", "", "", "", ""];
@@ -95,6 +103,7 @@ function restartGame() {
   cells.forEach((cell) => {
     cell.textContent = "";
     cell.style.backgroundColor = "#0e4f30";
+    cell.style.borderColor = "white";
   });
   running = true;
 }
