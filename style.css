@@ -6,13 +6,13 @@ body {
 }
 
 .cell {
-  width: 75px;
-  height: 75px;
+  width: 100px;
+  height: 100px;
   background: #0e4f30;
   border: 2px solid rgb(255, 255, 255) !important;
   /* box-shadow: 0 0 0 2px; */
-  line-height: 75px;
-  font-size: 50px;
+  line-height: 100px;
+  font-size: 75px;
   cursor: pointer;
 }
 #gameContainer {
@@ -27,10 +27,11 @@ body {
   width: 225px;
   margin: auto;
   border-radius: 20px;
+  justify-content: center;
+  align-content: center;
 }
 
 h1 {
-  /* background-color: #9d7e56; */
   background-image: url("trees-1915251_1280.jpg");
   background-size: cover;
   background-position: center;
@@ -72,27 +73,137 @@ h1 {
 
 .bonjour {
   position: absolute;
-  right: 120px;
-  bottom: 250px;
-  font-size: 48px;
+  right: 40px;
+  bottom: 200px;
+  font-size: 24px;
   transform: rotate(-15deg);
-  color: #ff9900ff;
 }
 
 .hello {
   position: absolute;
-  left: 120px;
+  left: 80px;
   bottom: 350px;
-  font-size: 48px;
+  font-size: 30px;
   transform: rotate(15deg);
-  color: #ff0000ff;
 }
 
-.merhaba {
+#chalkContainer {
+  display: flex;
+  justify-content: space-between; /* groupe gauche à gauche, groupe droite à droite */
+  width: 90%;
+  margin: 0 auto;
+  margin-top: -20px;
+}
+
+/* Groupes de craies */
+.chalkGroup1,
+.chalkGroup2 {
+  display: flex;
+  gap: 15px; /* espacement identique entre les craies */
+  width: fit-content; /* empêche l’étirement du groupe */
+}
+
+/* Craies de gauche */
+.chalk1,
+.chalk2,
+.chalk3,
+.chalk4,
+.chalk5,
+.chalk6,
+.chalk7,
+.chalk8,
+.chalk9,
+.chalk10 {
+  width: 50px;
+  height: 200px;
+  border-radius: 7px;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  margin: 0; /* important pour supprimer les marges qui créaient les espaces bizarres */
+}
+
+/* Tips pour chaque craie */
+.chalk1 .tip1 {
+  background-color: #ff6666;
+}
+.chalk2 .tip2 {
+  background-color: hsl(36, 96%, 69%);
+}
+.chalk3 .tip3 {
+  background-color: hsl(53, 100%, 80%);
+}
+.chalk4 .tip4 {
+  background-color: hsl(116, 100%, 76%);
+}
+.chalk5 .tip5 {
+  background-color: rgb(71, 83, 216);
+}
+.chalk6 .tip6 {
+  background-color: #ff6666;
+}
+.chalk7 .tip7 {
+  background-color: hsl(36, 96%, 69%);
+}
+.chalk8 .tip8 {
+  background-color: hsl(53, 100%, 80%);
+}
+.chalk9 .tip9 {
+  background-color: hsl(116, 100%, 76%);
+}
+.chalk10 .tip10 {
+  background-color: rgb(71, 83, 216);
+}
+
+.chalk1 {
+  background-color: #ff0000;
+}
+.chalk2 {
+  background-color: #ff9900ff;
+}
+.chalk3 {
+  background-color: #fff700ff;
+}
+.chalk4 {
+  background-color: rgb(0, 255, 51);
+}
+.chalk5 {
+  background-color: #0015ffff;
+}
+.chalk6 {
+  background-color: #ff0000;
+}
+.chalk7 {
+  background-color: #ff9900ff;
+}
+.chalk8 {
+  background-color: #fff700ff;
+}
+.chalk9 {
+  background-color: rgb(0, 255, 51);
+}
+.chalk10 {
+  background-color: #0015ffff;
+}
+
+/* Styles des tips généraux */
+.chalk1 .tip1,
+.chalk2 .tip2,
+.chalk3 .tip3,
+.chalk4 .tip4,
+.chalk5 .tip5,
+.chalk6 .tip6,
+.chalk7 .tip7,
+.chalk8 .tip8,
+.chalk9 .tip9,
+.chalk10 .tip10 {
+  width: 50px;
+  height: 20px;
+  border-radius: 50%;
   position: absolute;
-  left: 230px;
-  bottom: 90px;
-  font-size: 48px;
-  transform: rotate(-19deg);
-  color: #00fff7ff;
+  top: -6px;
+}
+
+.chalk-active {
+  transform: translateY(-40px); /* craie en haut */
 }
