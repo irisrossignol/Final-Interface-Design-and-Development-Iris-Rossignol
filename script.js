@@ -5,7 +5,7 @@ const restartBtn = document.querySelector("#restartBtn");
 const chalkGroup1 = document.querySelectorAll(".chalkGroup1 .chalk"); // Craies X
 const chalkGroup2 = document.querySelectorAll(".chalkGroup2 .chalk"); // Craies O
 
-// Alignements gagnants
+// Combinaisons gagnantes
 const winConditions = [
   [0, 1, 2],
   [3, 4, 5],
@@ -17,17 +17,15 @@ const winConditions = [
   [2, 4, 6],
 ];
 
-let options = ["", "", "", "", "", "", "", "", ""];
+let options = Array(9).fill("");
 let currentPlayer = "X";
 let running = false;
 
-let currentXColor = "#ff0000"; // couleur par défaut X
-let currentOColor = "#0015ff"; // couleur par défaut O
-let activeChalkX = null;
-let activeChalkO = null;
+let currentXColor, currentOColor;
+let activeChalkX, activeChalkO;
 
-// Sons
-let polySynth = new Tone.PolySynth(Tone.Synth, {
+// Son
+const polySynth = new Tone.PolySynth(Tone.Synth, {
   oscillator: { type: "fatsawtooth", count: 3, spread: 10 },
   envelope: {
     attack: 0.01,
@@ -39,24 +37,57 @@ let polySynth = new Tone.PolySynth(Tone.Synth, {
 });
 polySynth.toDestination();
 
+// Fonction pour initialiser les craies par défaut
+function setDefaultChalks() {
+  const chalk1 = document.querySelector(".chalk1");
+  const chalk10 = document.querySelector(".chalk10");
+
+  if (activeChalkX) activeChalkX.classList.remove("chalk-active");
+  if (activeChalkO) activeChalkO.classList.remove("chalk-active");
+
+  chalk1.classList.add("chalk-active");
+  chalk10.classList.add("chalk-active");
+
+  activeChalkX = chalk1;
+  activeChalkO = chalk10;
+
+  currentXColor = window.getComputedStyle(chalk1).backgroundColor;
+  currentOColor = window.getComputedStyle(chalk10).backgroundColor;
+}
+
+// Fonction pour mettre des couleurs aléatoires sur les textes
+function setRandomTextColors() {
+  const allChalks = [...chalkGroup1, ...chalkGroup2];
+  const getRandomColor = () => {
+    const chalk = allChalks[Math.floor(Math.random() * allChalks.length)];
+    return window.getComputedStyle(chalk).backgroundColor;
+  };
+
+  document.querySelector(".bonjour").style.color = getRandomColor();
+  document.querySelector(".hello").style.color = getRandomColor();
+}
+
 // Initialisation du jeu
 function initializeGame() {
   cells.forEach((cell) => cell.addEventListener("click", cellClicked));
   restartBtn.addEventListener("click", restartGame);
-  statusText.textContent = `${currentPlayer}'s turn`;
-  running = true;
 
-  // Événement craies
+  running = true;
+  currentPlayer = "X";
+  statusText.textContent = `${currentPlayer}'s turn`;
+
   chalkGroup1.forEach((chalk) =>
     chalk.addEventListener("click", () => selectChalk(chalk, "X"))
   );
   chalkGroup2.forEach((chalk) =>
     chalk.addEventListener("click", () => selectChalk(chalk, "O"))
   );
-}
-initializeGame();
 
-// Gestion clic sur cellule
+  setDefaultChalks();
+  setRandomTextColors(); // couleurs aléatoires au départ
+}
+
+// Clic sur cellule
 function cellClicked() {
   const index = this.getAttribute("cellIndex");
   if (options[index] !== "" || !running) return;
@@ -65,7 +96,6 @@ function cellClicked() {
   this.textContent = currentPlayer;
   this.style.color = currentPlayer === "X" ? currentXColor : currentOColor;
 
-  // Son
   Tone.start();
   const octave = currentPlayer === "X" ? 4 : 5;
   polySynth.triggerAttackRelease(this.dataset.note + octave, "8n");
@@ -75,14 +105,10 @@ function cellClicked() {
 
 // Vérification victoire
 function checkWinner() {
-  let roundWon = false;
-  for (let cond of winConditions) {
-    const [a, b, c] = cond;
-    if (options[a] && options[a] === options[b] && options[a] === options[c]) {
-      roundWon = true;
-      break;
-    }
-  }
+  let roundWon = winConditions.some(
+    ([a, b, c]) =>
+      options[a] && options[a] === options[b] && options[a] === options[c]
+  );
 
   if (roundWon) {
     statusText.textContent = `${currentPlayer} wins!`;
@@ -95,11 +121,13 @@ function checkWinner() {
   }
 }
 
+// Changement de joueur
 function changePlayer() {
   currentPlayer = currentPlayer === "X" ? "O" : "X";
   statusText.textContent = `${currentPlayer}'s turn`;
 }
 
+// Redémarrer le jeu
 function restartGame() {
   options.fill("");
   cells.forEach((cell) => {
@@ -112,16 +140,13 @@ function restartGame() {
   currentPlayer = "X";
   statusText.textContent = `${currentPlayer}'s turn`;
 
-  // Reset craies
-  if (activeChalkX) activeChalkX.classList.remove("chalk-active");
-  if (activeChalkO) activeChalkO.classList.remove("chalk-active");
-  activeChalkX = null;
-  activeChalkO = null;
+  setDefaultChalks();
+  setRandomTextColors(); // couleurs aléatoires après restart
 }
 
-// Gestion sélection craie
+// Sélection craie
 function selectChalk(chalk, player) {
-  const color = window.getComputedStyle(chalk).backgroundColor; // récupère la vraie couleur
+  const color = window.getComputedStyle(chalk).backgroundColor;
 
   if (player === "X") {
     if (activeChalkX && activeChalkX !== chalk)
@@ -138,17 +163,4 @@ function selectChalk(chalk, player) {
   }
 }
 
-// Initialiser les craies actives par défaut
-window.addEventListener("DOMContentLoaded", () => {
-  // Craie rouge gauche (chalk1)
-  const chalk1 = document.querySelector(".chalk1");
-  chalk1.classList.add("chalk-active");
-  activeChalkX = chalk1;
-  currentXColor = window.getComputedStyle(chalk1).backgroundColor;
-
-  // Craie rouge droite (chalk10)
-  const chalk10 = document.querySelector(".chalk10");
-  chalk10.classList.add("chalk-active");
-  activeChalkO = chalk10;
-  currentOColor = window.getComputedStyle(chalk10).backgroundColor;
-});
+window.addEventListener("DOMContentLoaded", initializeGame);

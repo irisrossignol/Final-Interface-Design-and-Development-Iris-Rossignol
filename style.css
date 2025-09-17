@@ -32,17 +32,33 @@ body {
 }
 
 h1 {
+  position: relative;
+  font-family: mono;
   background-image: url("trees-1915251_1280.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  color: black;
+  color: rgb(0, 0, 0);
   margin: 0;
   padding: 20px;
   margin-bottom: 4%;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+h1::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  z-index: -1;
 }
 
 #restartBtn {
@@ -89,21 +105,19 @@ h1 {
 
 #chalkContainer {
   display: flex;
-  justify-content: space-between; /* groupe gauche à gauche, groupe droite à droite */
+  justify-content: space-between;
   width: 90%;
   margin: 0 auto;
   margin-top: -20px;
 }
 
-/* Groupes de craies */
 .chalkGroup1,
 .chalkGroup2 {
   display: flex;
-  gap: 15px; /* espacement identique entre les craies */
-  width: fit-content; /* empêche l’étirement du groupe */
+  gap: 15px;
+  width: fit-content;
 }
 
-/* Craies de gauche */
 .chalk1,
 .chalk2,
 .chalk3,
@@ -120,10 +134,9 @@ h1 {
   position: relative;
   cursor: pointer;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-  margin: 0; /* important pour supprimer les marges qui créaient les espaces bizarres */
+  margin: 0;
 }
 
-/* Tips pour chaque craie */
 .chalk1 .tip1 {
   background-color: #ff6666;
 }
@@ -186,7 +199,6 @@ h1 {
   background-color: #0015ffff;
 }
 
-/* Styles des tips généraux */
 .chalk1 .tip1,
 .chalk2 .tip2,
 .chalk3 .tip3,
@@ -205,5 +217,5 @@ h1 {
 }
 
 .chalk-active {
-  transform: translateY(-40px); /* craie en haut */
+  transform: translateY(-40px);
 }
