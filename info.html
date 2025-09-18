@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TicTacToe</title>
+    <script src="https://unpkg.com/tone"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Modak&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="gameContainer">
+      <h1>INFORMATIONS</h1>
+      <a href="index.html"><button id="gameBtn">Game</button></a>
+      <h2>PROMPT AND TECHNIQUE :</h2>
+      <p class="info">
+        My first idea was to use the prompt "Skeuomorphism" because it was a
+        prompt that inspired me. I decided to make a known game concept, I
+        hesitated between Tic Tac Toe, Connect Four or chess and I chose Tic Tac
+        Toe because it was the game that seemed the most accessible for me. I
+        had trouble deciding on an aesthetic for my project and while trying
+        different typographies I came across Chalkduster, a typo that looks like
+        chalk and I had the idea of ​​making my Tic Tac Toe with the aesthetic
+        of a chalk board with a slightly childish vision.
+      </p>
+      <h2>TECHNICAL APPROACH TO IMPLEMENTATION :</h2>
+      <p class="info">
+        I really wanted to add a math.random in my code because it's the first
+        code that struck me and I really like randomization. For the website
+        implementation I put the player interaction, each player can either an X
+        or an O and the first one who makes a line of three X or three O wins.
+        Each time a player places his shape, the grid makes a sound, each cell
+        makes a different sound. I had previously put my math.random on the
+        letters X and O but after feedbacks I decided to change my math.random
+        and put it on the colors of the texts on the right and left of my site.
+        To replace the color of the X and O I chose to give the option to the
+        players to choose between 5 colors of chalk for their shape. And finally
+        we have the Restart button, which resets the game to 0, which changes
+        the colors of the texts on the right and left and which resets the
+        original chalk colors (red for the X, blue for the O).
+      </p>
+      <h2>PROMPTS AND FEEDBACKS</h2>
+      <p class="info">
+        My two prompts were: <br> 1. Are the colors of the letters too distracting?
+         <br>2. Is the interface interesting and visually appealing, or does it feel
+        too empty? </br>For the first, the answers were kind of mixed: half yes, half
+        no. A few people said that the fact that all the Xs and Os weren't the
+        same color was quite distracting (although others said it wasn't
+        distracting since they were focused on the game). I wanted to add a
+        math.random on these letters and differentiate them by putting different
+        colors for each (the Xs are yellow/orange/red and the Os
+        blue/purple/green). I thought that would be enough to distinguish the Xs
+        and Os, but apparently not for everyone. To solve this problem I decided
+        to move the math random to the right and left sentences of my game and
+        to let the players choose their color for the game. For the second
+        prompt, some people were saying that the site was a little empty in
+        terms of interaction so I added the choice of chalks and some reviews
+        also advised me to make the game bigger which was done.
+      </p>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
